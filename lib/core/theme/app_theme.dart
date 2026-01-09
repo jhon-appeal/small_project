@@ -64,16 +64,29 @@ class AppTheme {
   }
 
   static Color getStatusColor(String status) {
-    // Status should match milestone_status ENUM: pending, in_progress, completed, approved
+    // Handles both project_status and milestone_status ENUMs
     switch (status.toLowerCase().trim()) {
+      // Common statuses
       case 'pending':
         return pendingColor;
-      case 'in_progress':
-        return inProgressColor;
       case 'completed':
         return completedColor;
+      // Milestone statuses
+      case 'in_progress':
+        return inProgressColor;
       case 'approved':
         return approvedColor;
+      // Project statuses
+      case 'inspection':
+        return inspectionColor;
+      case 'claim_lodged':
+        return pendingColor; // Grey for lodged claims
+      case 'claim_approved':
+        return claimApprovedColor;
+      case 'construction':
+        return constructionColor;
+      case 'closed':
+        return pendingColor; // Grey for closed projects
       default:
         return Colors.grey;
     }

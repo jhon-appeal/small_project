@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:small_project/core/theme/app_theme.dart';
+import 'package:small_project/core/utils/constants.dart';
 import 'package:small_project/features/projects/viewmodels/project_detail_viewmodel.dart';
 
 class ProjectDetailView extends StatefulWidget {
@@ -14,6 +15,8 @@ class ProjectDetailView extends StatefulWidget {
 }
 
 class _ProjectDetailViewState extends State<ProjectDetailView> {
+  String? _selectedNewStatus;
+
   @override
   void initState() {
     super.initState();
@@ -96,6 +99,13 @@ class _ProjectDetailViewState extends State<ProjectDetailView> {
                                 _buildStatusChip(project.status),
                               ],
                             ),
+                            // Status Change Section
+                            if (viewModel.canChangeStatus()) ...[
+                              const SizedBox(height: 16),
+                              const Divider(),
+                              const SizedBox(height: 16),
+                              _buildStatusChangeSection(context, viewModel, project.status),
+                            ],
                             if (project.claimNumber != null) ...[
                               const SizedBox(height: 8),
                               Text('Claim Number: ${project.claimNumber}'),
@@ -174,6 +184,102 @@ class _ProjectDetailViewState extends State<ProjectDetailView> {
       ),
       backgroundColor: AppTheme.getStatusColor(status.toLowerCase()),
       padding: const EdgeInsets.symmetric(horizontal: 8),
+    );
+  }
+
+  Widget _buildStatusChangeSection(
+    BuildContext context,
+    ProjectDetailViewModel viewModel,
+    String currentStatus,
+  ) {
+    final allowedStatuses = viewModel.getAllowedNextStatuses();
+    
+    if (allowedStatuses.isEmpty) {
+      return const SizedBox.shrink();
+    }
+    
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Change Status',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 12),
+        DropdownButtonFormField<String>(
+          decoration: InputDecoration(
+            labelText: 'New Status',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            filled: true,
+            fillColor: Colors.grey[50],
+          ),
+          value: _selectedNewStatus,
+          items: allowedStatuses.map((status) {
+            return DropdownMenuItem<String>(
+              value: status,
+              child: Text(
+                status.replaceAll('_', ' ').toUpperCase(),
+              ),
+            );
+          }).toList(),
+          onChanged: (value) {
+            setState(() {
+              _selectedNewStatus = value;
+            });
+          },
+        ),
+        const SizedBox(height: 16),
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton.icon(
+            onPressed: viewModel.isLoading ? null : () async {
+              if (_selectedNewStatus == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Please select a status'),
+                    backgroundColor: Colors.orange,
+                  ),
+                );
+                return;
+              }
+
+              final success = await viewModel.updateProjectStatus(_selectedNewStatus!);
+              if (mounted) {
+                if (success) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Status updated successfully'),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
+                  setState(() {
+                    _selectedNewStatus = null;
+                  });
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        viewModel.errorMessage ?? 'Failed to update status',
+                      ),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+              }
+            },
+            icon: const Icon(Icons.update),
+            label: const Text('Update Status'),
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
