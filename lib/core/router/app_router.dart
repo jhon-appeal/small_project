@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:small_project/features/auth/views/login_view.dart';
 import 'package:small_project/features/auth/views/signup_view.dart';
 import 'package:small_project/features/dashboard/views/dashboard_view.dart';
+import 'package:small_project/features/milestones/viewmodels/milestone_detail_viewmodel.dart';
 import 'package:small_project/features/milestones/views/milestone_detail_view.dart';
+import 'package:small_project/features/projects/viewmodels/project_detail_viewmodel.dart';
 import 'package:small_project/features/projects/viewmodels/projects_viewmodel.dart';
 import 'package:small_project/features/projects/views/project_detail_view.dart';
 import 'package:small_project/features/projects/views/projects_list_view.dart';
@@ -50,7 +52,10 @@ class AppRouter {
         path: '/projects/:id',
         builder: (context, state) {
           final projectId = state.pathParameters['id']!;
-          return ProjectDetailView(projectId: projectId);
+          return ChangeNotifierProvider(
+            create: (_) => ProjectDetailViewModel(),
+            child: ProjectDetailView(projectId: projectId),
+          );
         },
       ),
       GoRoute(
@@ -58,9 +63,12 @@ class AppRouter {
         builder: (context, state) {
           final projectId = state.pathParameters['projectId']!;
           final milestoneId = state.pathParameters['milestoneId']!;
-          return MilestoneDetailView(
-            projectId: projectId,
-            milestoneId: milestoneId,
+          return ChangeNotifierProvider(
+            create: (_) => MilestoneDetailViewModel(),
+            child: MilestoneDetailView(
+              projectId: projectId,
+              milestoneId: milestoneId,
+            ),
           );
         },
       ),

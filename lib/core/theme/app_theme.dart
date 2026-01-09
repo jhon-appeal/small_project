@@ -11,6 +11,9 @@ class AppTheme {
   static const Color inProgressColor = Color(0xFF2196F3); // Blue
   static const Color completedColor = Color(0xFF4CAF50); // Green
   static const Color approvedColor = Color(0xFF4CAF50); // Green
+  static const Color inspectionColor = Color(0xFFFFC107); // Amber
+  static const Color claimApprovedColor = Color(0xFF4CAF50); // Green
+  static const Color constructionColor = Color(0xFFFF9800); // Orange
 
   static ThemeData get lightTheme {
     return ThemeData(
@@ -69,6 +72,12 @@ class AppTheme {
       case 'completed':
       case 'approved':
         return completedColor;
+      case 'inspection':
+        return inspectionColor;
+      case 'claim_approved':
+        return claimApprovedColor;
+      case 'construction':
+        return constructionColor;
       default:
         return Colors.grey;
     }

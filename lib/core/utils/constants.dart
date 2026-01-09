@@ -1,6 +1,6 @@
 class AppConstants {
   // Storage
-  static const String storageBucket = 'progress-photos';
+  static const String storageBucket = 'progress-photo';
 
   // User Roles
   static const String roleHomeowner = 'homeowner';

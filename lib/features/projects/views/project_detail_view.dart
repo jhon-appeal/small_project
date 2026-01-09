@@ -24,9 +24,7 @@ class _ProjectDetailViewState extends State<ProjectDetailView> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => ProjectDetailViewModel(),
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: const Text('Project Details'),
         ),
@@ -165,7 +163,6 @@ class _ProjectDetailViewState extends State<ProjectDetailView> {
             );
           },
         ),
-      ),
     );
   }
 
@@ -175,7 +172,7 @@ class _ProjectDetailViewState extends State<ProjectDetailView> {
         status.replaceAll('_', ' ').toUpperCase(),
         style: const TextStyle(fontSize: 12, color: Colors.white),
       ),
-      backgroundColor: AppTheme.getStatusColor(status),
+      backgroundColor: AppTheme.getStatusColor(status.toLowerCase()),
       padding: const EdgeInsets.symmetric(horizontal: 8),
     );
   }

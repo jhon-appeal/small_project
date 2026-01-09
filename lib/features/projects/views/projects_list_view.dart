@@ -122,7 +122,7 @@ class _ProjectsListViewState extends State<ProjectsListView> {
         status.replaceAll('_', ' ').toUpperCase(),
         style: const TextStyle(fontSize: 12, color: Colors.white),
       ),
-      backgroundColor: AppTheme.getStatusColor(status),
+      backgroundColor: AppTheme.getStatusColor(status.toLowerCase()),
       padding: const EdgeInsets.symmetric(horizontal: 8),
     );
   }

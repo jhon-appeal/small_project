@@ -154,9 +154,7 @@ class _MilestoneDetailViewState extends State<MilestoneDetailView> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => MilestoneDetailViewModel(),
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: const Text('Milestone Details'),
         ),
@@ -240,7 +238,7 @@ class _MilestoneDetailViewState extends State<MilestoneDetailView> {
                                     ),
                                   ),
                                   backgroundColor:
-                                      AppTheme.getStatusColor(milestone.status),
+                                      AppTheme.getStatusColor(milestone.status.toLowerCase()),
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 8),
                                 ),
@@ -344,7 +342,6 @@ class _MilestoneDetailViewState extends State<MilestoneDetailView> {
             );
           },
         ),
-      ),
     );
   }
 
