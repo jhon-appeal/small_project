@@ -1,11 +1,10 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../viewmodels/milestone_detail_viewmodel.dart';
-import '../../../core/theme/app_theme.dart';
-import '../../photos/services/photo_service.dart';
+import 'package:small_project/core/theme/app_theme.dart';
+import 'package:small_project/features/milestones/viewmodels/milestone_detail_viewmodel.dart';
+import 'package:small_project/features/photos/services/photo_service.dart';
 
 class MilestoneDetailView extends StatefulWidget {
   final String projectId;
@@ -24,6 +23,7 @@ class MilestoneDetailView extends StatefulWidget {
 class _MilestoneDetailViewState extends State<MilestoneDetailView> {
   final ImagePicker _picker = ImagePicker();
   final PhotoService _photoService = PhotoService();
+  String? _selectedNewStatus;
 
   @override
   void initState() {
@@ -244,6 +244,13 @@ class _MilestoneDetailViewState extends State<MilestoneDetailView> {
                                 ),
                               ],
                             ),
+                            // Status Change Section
+                            if (viewModel.canChangeStatus()) ...[
+                              const SizedBox(height: 16),
+                              const Divider(),
+                              const SizedBox(height: 16),
+                              _buildStatusChangeSection(context, viewModel, milestone.status),
+                            ],
                             if (milestone.dueDate != null) ...[
                               const SizedBox(height: 8),
                               Text('Due Date: ${_formatDate(milestone.dueDate!)}'),
@@ -347,6 +354,102 @@ class _MilestoneDetailViewState extends State<MilestoneDetailView> {
 
   String _formatDate(DateTime date) {
     return '${date.day}/${date.month}/${date.year}';
+  }
+
+  Widget _buildStatusChangeSection(
+    BuildContext context,
+    MilestoneDetailViewModel viewModel,
+    String currentStatus,
+  ) {
+    final allowedStatuses = viewModel.getAllowedNextStatuses();
+    
+    if (allowedStatuses.isEmpty) {
+      return const SizedBox.shrink();
+    }
+    
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Change Status',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 12),
+        DropdownButtonFormField<String>(
+          decoration: InputDecoration(
+            labelText: 'New Status',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            filled: true,
+            fillColor: Colors.grey[50],
+          ),
+          value: _selectedNewStatus,
+          items: allowedStatuses.map((status) {
+            return DropdownMenuItem<String>(
+              value: status,
+              child: Text(
+                status.replaceAll('_', ' ').toUpperCase(),
+              ),
+            );
+          }).toList(),
+          onChanged: (value) {
+            setState(() {
+              _selectedNewStatus = value;
+            });
+          },
+        ),
+        const SizedBox(height: 16),
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton.icon(
+            onPressed: viewModel.isLoading ? null : () async {
+              if (_selectedNewStatus == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Please select a status'),
+                    backgroundColor: Colors.orange,
+                  ),
+                );
+                return;
+              }
+
+              final success = await viewModel.updateMilestoneStatus(_selectedNewStatus!);
+              if (mounted) {
+                if (success) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Status updated successfully'),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
+                  setState(() {
+                    _selectedNewStatus = null;
+                  });
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        viewModel.errorMessage ?? 'Failed to update status',
+                      ),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+              }
+            },
+            icon: const Icon(Icons.update),
+            label: const Text('Update Status'),
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
 

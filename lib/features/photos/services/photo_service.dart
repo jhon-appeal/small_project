@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:path/path.dart' as path;
-import '../../../core/config/supabase_config.dart';
-import '../../../core/utils/constants.dart';
-import '../../../shared/models/progress_photo_model.dart';
-import '../../../shared/services/supabase_service.dart';
+import 'package:small_project/core/config/supabase_config.dart';
+import 'package:small_project/core/utils/constants.dart';
+import 'package:small_project/shared/models/progress_photo_model.dart';
+import 'package:small_project/shared/services/supabase_service.dart';
 
 class PhotoService {
   final _client = SupabaseConfig.client;

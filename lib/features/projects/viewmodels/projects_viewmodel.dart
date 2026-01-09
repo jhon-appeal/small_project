@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import '../services/project_service.dart';
-import '../../../shared/models/project_model.dart';
+import 'package:small_project/features/projects/services/project_service.dart';
+import 'package:small_project/shared/models/project_model.dart';
 
 class ProjectsViewModel extends ChangeNotifier {
   final ProjectService _projectService = ProjectService();

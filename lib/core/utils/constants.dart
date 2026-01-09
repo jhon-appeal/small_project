@@ -16,10 +16,17 @@ class AppConstants {
   static const String statusCompleted = 'completed';
   static const String statusClosed = 'closed';
 
-  // Milestone Statuses
+  // Milestone Statuses (matches milestone_status ENUM in Supabase)
   static const String milestonePending = 'pending';
   static const String milestoneInProgress = 'in_progress';
   static const String milestoneCompleted = 'completed';
   static const String milestoneApproved = 'approved';
+
+  // Milestone Names (matches milestone_name ENUM in Supabase)
+  static const String milestoneNameInitialInspection = 'Initial Inspection';
+  static const String milestoneNameClaimLodged = 'Claim Lodged';
+  static const String milestoneNameClaimApproved = 'Claim Approved';
+  static const String milestoneNameRoofConstruction = 'Roof Construction';
+  static const String milestoneNameFinalInspection = 'Final Inspection';
 }
 

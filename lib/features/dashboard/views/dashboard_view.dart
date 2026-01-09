@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import '../../auth/viewmodels/auth_viewmodel.dart';
-import '../../../core/theme/app_theme.dart';
-import '../../../core/utils/constants.dart';
+import 'package:small_project/core/theme/app_theme.dart';
+import 'package:small_project/core/utils/constants.dart';
+import 'package:small_project/features/auth/viewmodels/auth_viewmodel.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import '../viewmodels/projects_viewmodel.dart';
-import '../../../core/theme/app_theme.dart';
+import 'package:small_project/core/theme/app_theme.dart';
+import 'package:small_project/features/projects/viewmodels/projects_viewmodel.dart';
 
 class ProjectsListView extends StatefulWidget {
   const ProjectsListView({super.key});

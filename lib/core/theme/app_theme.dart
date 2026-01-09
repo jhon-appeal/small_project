@@ -64,20 +64,16 @@ class AppTheme {
   }
 
   static Color getStatusColor(String status) {
-    switch (status) {
+    // Status should match milestone_status ENUM: pending, in_progress, completed, approved
+    switch (status.toLowerCase().trim()) {
       case 'pending':
         return pendingColor;
       case 'in_progress':
         return inProgressColor;
       case 'completed':
-      case 'approved':
         return completedColor;
-      case 'inspection':
-        return inspectionColor;
-      case 'claim_approved':
-        return claimApprovedColor;
-      case 'construction':
-        return constructionColor;
+      case 'approved':
+        return approvedColor;
       default:
         return Colors.grey;
     }

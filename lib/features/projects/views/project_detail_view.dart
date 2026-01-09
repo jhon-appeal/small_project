@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../viewmodels/project_detail_viewmodel.dart';
-import '../../../core/theme/app_theme.dart';
 import 'package:go_router/go_router.dart';
+import 'package:small_project/core/theme/app_theme.dart';
+import 'package:small_project/features/projects/viewmodels/project_detail_viewmodel.dart';
 
 class ProjectDetailView extends StatefulWidget {
   final String projectId;

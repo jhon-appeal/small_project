@@ -1,5 +1,5 @@
-import '../../../core/config/supabase_config.dart';
-import '../../../shared/models/project_model.dart';
+import 'package:small_project/core/config/supabase_config.dart';
+import 'package:small_project/shared/models/project_model.dart';
 
 class ProjectService {
   final _client = SupabaseConfig.client;

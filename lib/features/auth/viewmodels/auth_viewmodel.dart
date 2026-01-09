@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import '../services/auth_service.dart';
-import '../../../shared/models/profile_model.dart';
+import 'package:small_project/features/auth/services/auth_service.dart';
+import 'package:small_project/shared/models/profile_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthViewModel extends ChangeNotifier {

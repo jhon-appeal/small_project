@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import '../viewmodels/auth_viewmodel.dart';
-import '../../../core/utils/constants.dart';
+import 'package:small_project/core/utils/constants.dart';
+import 'package:small_project/features/auth/viewmodels/auth_viewmodel.dart';
 
 class SignupView extends StatefulWidget {
   const SignupView({super.key});

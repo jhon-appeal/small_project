@@ -1,5 +1,6 @@
-import '../../../core/config/supabase_config.dart';
-import '../../../shared/models/milestone_model.dart';
+
+import 'package:small_project/core/config/supabase_config.dart';
+import 'package:small_project/shared/models/milestone_model.dart';
 
 class MilestoneService {
   final _client = SupabaseConfig.client;
