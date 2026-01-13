@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   // Color scheme based on roles
-  static const Color homeownerColor = Color(0xFF2196F3); // Blue
-  static const Color roofingColor = Color(0xFF4CAF50); // Green
-  static const Color assessDirectColor = Color(0xFFFF9800); // Orange
+  static const Color homeownerColor = Color(0xFF2196F3);
+  static const Color roofingColor = Color(0xFF4CAF50);
+  static const Color assessDirectColor = Color(0xFFFF9800);
 
   // Status colors
-  static const Color pendingColor = Color(0xFF9E9E9E); // Grey
-  static const Color inProgressColor = Color(0xFF2196F3); // Blue
-  static const Color completedColor = Color(0xFF4CAF50); // Green
-  static const Color approvedColor = Color(0xFF4CAF50); // Green
-  static const Color inspectionColor = Color(0xFFFFC107); // Amber
-  static const Color claimApprovedColor = Color(0xFF4CAF50); // Green
-  static const Color constructionColor = Color(0xFFFF9800); // Orange
+  static const Color pendingColor = Color(0xFF9E9E9E);
+  static const Color inProgressColor = Color(0xFF2196F3);
+  static const Color completedColor = Color(0xFF4CAF50);
+  static const Color approvedColor = Color(0xFF4CAF50);
+  static const Color inspectionColor = Color(0xFFFFC107);
+  static const Color claimApprovedColor = Color(0xFF4CAF50);
+  static const Color constructionColor = Color(0xFFFF9800);
 
   static ThemeData get lightTheme {
     return ThemeData(
@@ -80,13 +80,13 @@ class AppTheme {
       case 'inspection':
         return inspectionColor;
       case 'claim_lodged':
-        return pendingColor; // Grey for lodged claims
+        return pendingColor;
       case 'claim_approved':
         return claimApprovedColor;
       case 'construction':
         return constructionColor;
       case 'closed':
-        return pendingColor; // Grey for closed projects
+        return pendingColor;
       default:
         return Colors.grey;
     }
